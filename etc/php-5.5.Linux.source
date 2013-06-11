@@ -4,23 +4,17 @@ if [ -n $PHP_AUTOCONF ]; then
   unset PHP_AUTOCONF
 fi
                    
-CONFIGURE_OPTIONS="--with-apxs2=/usr/bin/apxs2
+CONFIGURE_OPTIONS="
                    --enable-fpm
-                   --enable-zend-multibyte
+                   --enable-embed
                    --enable-phar
                    --disable-intl
-                   --with-libxml-dir=/usr/local
-                   --with-openssl
-                   --with-kerberos=/usr
+                   --with-openssl=/usr/
                    --with-zlib
-                   --with-zlib-dir=/usr/local
                    --enable-bcmath
-                   --with-bz2=/usr
+                   --with-bz2
                    --enable-calendar
                    --enable-exif
-                   --with-png-dir=/usr/local
-                   --with-jpeg-dir=/usr/local
-                   --with-freetype-dir=/usr/local
                    --with-gd
                    --enable-gd-native-ttf
                    --with-pear
@@ -34,13 +28,8 @@ CONFIGURE_OPTIONS="--with-apxs2=/usr/bin/apxs2
                    --enable-sysvshm
                    --enable-wddx
                    --with-xmlrpc
-                   --with-xsl=/usr/local
                    --enable-zip
                    --with-pcre-regex
-                   --with-curl=/usr/local
-                   --with-iconv-dir=/usr/local
-                   --with-mcrypt=/usr/local
-                   --with-gettext=/usr/local
                    --enable-pcntl
                    --with-mysql
                    --with-mysqli
@@ -49,8 +38,6 @@ CONFIGURE_OPTIONS="--with-apxs2=/usr/bin/apxs2
                    --with-readline
                    --enable-apc
                    --enable-igbinary
-                   --enable-memcached
-                   --enable-memcached-igbinary
                    "
 
 MANUAL_EXTENSIONS=('http' 'uri-template' 'xdebug')

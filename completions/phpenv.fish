@@ -17,6 +17,6 @@ function __fish_phpenv_using_command
 end
 
 complete -f -c phpenv -n '__fish_phpenv_needs_command' -a '(phpenv commands)'
-for cmd in (anyenv commands)
+for cmd in (phpenv commands)
   complete -f -c phpenv -n "__fish_phpenv_using_command $cmd" -a "(phpenv completions $cmd)"
 end

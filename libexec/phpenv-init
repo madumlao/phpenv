@@ -57,7 +57,7 @@ if [ -z "$print" ]; then
     profile='~/.profile'
     ;;
   fish )
-    profile='~/.profile'
+    profile='~/.config/fish/config.fish'
     ;;
   * )
     profile='your profile'

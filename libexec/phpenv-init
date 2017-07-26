@@ -78,10 +78,10 @@ mkdir -p "${PHPENV_ROOT}/"{shims,versions}
 
 case "$shell" in
 fish )
-  echo 'set -gx PATH '${NDENV_ROOT}'/shims $PATH'
+  echo 'set -gx PATH '${PHPENV_ROOT}'/shims $PATH'
   ;;
 * )
-  echo 'export PATH="'${NDENV_ROOT}'/shims:${PATH}"'
+  echo 'export PATH="'${PHPENV_ROOT}'/shims:${PATH}"'
   ;;
 esac
 

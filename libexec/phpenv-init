@@ -56,6 +56,9 @@ if [ -z "$print" ]; then
   ksh )
     profile='~/.profile'
     ;;
+  fish )
+    profile='~/.profile'
+    ;;
   * )
     profile='your profile'
     ;;
@@ -73,10 +76,17 @@ fi
 
 mkdir -p "${PHPENV_ROOT}/"{shims,versions}
 
-echo 'export PATH="'${PHPENV_ROOT}'/shims:${PATH}"'
+case "$shell" in
+fish )
+  echo 'set -gx PATH '${NDENV_ROOT}'/shims $PATH'
+  ;;
+* )
+  echo 'export PATH="'${NDENV_ROOT}'/shims:${PATH}"'
+  ;;
+esac
 
 case "$shell" in
-bash | zsh )
+bash | zsh | fish )
   echo "source \"$root/completions/phpenv.${shell}\""
   ;;
 esac
@@ -86,6 +96,8 @@ if [ -z "$no_rehash" ]; then
 fi
 
 commands=(`phpenv-commands --sh`)
+
+if [ "$shell" != "fish" ]; then
 IFS="|"
 cat <<EOS
 phpenv() {
@@ -103,3 +115,4 @@ phpenv() {
   esac
 }
 EOS
+fi

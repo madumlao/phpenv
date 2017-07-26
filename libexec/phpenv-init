@@ -67,7 +67,14 @@ if [ -z "$print" ]; then
   { echo "# Load phpenv automatically by adding"
     echo "# the following to ${profile}:"
     echo
-    echo 'eval "$(phpenv init -)"'
+    case "$shell" in
+    fish )
+      echo 'status --is-interactive; and source (phpenv init -|psub)'
+      ;;
+    * )
+      echo 'eval "$(phpenv init -)"'
+      ;;
+    esac
     echo
   } >&2
 

@@ -9,6 +9,8 @@ set -e
 if [ "$1" = "--complete" ]; then
   echo exec
   echo rehash
+  echo version-name
+  echo version-origin
   echo which
   exit
 fi
@@ -19,45 +21,12 @@ if [ -z "$PHPENV_COMMAND" ]; then
   exit 1
 fi
 
-#PHPENV_COMMAND_HOOK="$2"
-#if [ -z "$PHPENV_COMMAND_HOOK" ]; then
-#  PHPENV_COMMAND_HOOK="*"
-#fi
-
-resolve_link() {
-  $(type -p greadlink readlink | head -1) $1
-}
-
-realpath() {
-  local cwd="$(pwd)"
-  local base="$(basename $1)"
-  local path="$1"
-
-  while [ -n "$path" ]; do
-    cd "${path%/*}"
-    local name="${path##*/}"
-    path="$(resolve_link "$name" || true)"
-  done
-
-  echo "$(pwd)/$base"
-  cd "$cwd"
-}
+IFS=: read -r -a hook_paths <<<"$PHPENV_HOOK_PATH"
 
 shopt -s nullglob
-for path in ${PHPENV_HOOK_PATH//:/$'\n'}; do
-  for script in $path/"$PHPENV_COMMAND"/*.bash; do
-    echo $(realpath $script)
+for path in "${hook_paths[@]}"; do
+  for script in "$path/$PHPENV_COMMAND"/*.bash; do
+    echo "$script"
   done
 done
-#
-#for path in ${PHPENV_HOOK_PATH//:/$'\n'}; do
-#  files="${path}/${PHPENV_COMMAND}/${PHPENV_COMMAND_HOOK}.bash"
-#  for script in $files; do
-#    if [ "$PHPENV_COMMAND_HOOK" != "*" ] && [ -x $script ]; then
-#      exec "$script"
-#    elif [ -f $script ]; then
-#      echo $(realpath $script)
-#    fi
-#  done
-#done
 shopt -u nullglob

@@ -18,6 +18,9 @@ find_local_version_file() {
     if [ -s "${root}/.php-version" ]; then
       echo "${root}/.php-version"
       return 0
+    elif [ -s "${root}/.phpenv-version" ]; then
+      echo "${root}/.phpenv-version"
+      return 0
     fi
     [ -n "$root" ] || break
     root="${root%/*}"

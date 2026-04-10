@@ -47,6 +47,19 @@ create_file() {
   assert_success "${PHPENV_TEST_DIR}/project/.php-version"
 }
 
+@test "backwards compatibility with .phpenv-version" {
+  create_file ".phpenv-version"
+  run phpenv-version-file
+  assert_success "${PHPENV_TEST_DIR}/.phpenv-version"
+}
+
+@test "higher precendence of .php-version over .phpenv-version" {
+  create_file ".php-version"
+  create_file ".phpenv-version"
+  run phpenv-version-file
+  assert_success "${PHPENV_TEST_DIR}/.php-version"
+}
+
 @test "PHPENV_DIR has precedence over PWD" {
   create_file "widget/.php-version"
   create_file "project/.php-version"
